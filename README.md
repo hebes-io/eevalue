@@ -17,7 +17,7 @@ SENSEI acknowledges that power system operators cannot directly compensate the e
 
 The first step towards defining a P4P scheme that links energy efficiency in buildings with the power system’s state is to define what constitutes a load modifier resource. Load-modifiers are those resources or programs not seen or optimized by the power or capacity market, that persistently modify the power system’s load shape in ways that harmonize with the system operator’s goals. An effective load modifying resource helps create a flatter system load profile, attenuating high power peaks and valleys and reducing extreme upward and downward ramps.
 
-In order to link energy efficiency with the challenges of the power system’s operation, this deliverable makes the working assumption energy efficiency improvements are valorised through a Pay for Load Shape (P4LS) program, as proposed by the California Public Utilities Commission’s Working Group on Load Shift. A P4LS program: 
+In order to link energy efficiency with the challenges of the power system’s operation, SENSEI promotes the case where energy efficiency improvements are valorised through a Pay for Load Shape (P4LS) program, as proposed by the California Public Utilities Commission’s Working Group on Load Shift. A P4LS program: 
 
 * Operates outside of the power and capacity market;
 
