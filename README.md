@@ -1,4 +1,5 @@
-![logo]((https://github.com/hebes-io/eevalue/blob/main/logo.png&s=200)
+![logo](https://github.com/hebes-io/eevalue/blob/main/logo.png&s=200)
+<img src="https://cloud.githubusercontent.com/assets/yourgif.gif" width="400" height="790">
 
 <br/><br/>
 
