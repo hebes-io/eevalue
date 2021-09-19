@@ -1,6 +1,4 @@
-![logo](https://github.com/hebes-io/eevalue/blob/main/logo.png&s=200)
-<img src="https://cloud.githubusercontent.com/assets/yourgif.gif" width="400" height="790">
-
+<img src="https://github.com/hebes-io/eevalue/blob/main/logo.png" width="400" height="790">
 <br/><br/>
 
 ## The `eevalue` tool for estimating the value of energy efficiency in conditions of missing capacity
