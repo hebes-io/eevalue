@@ -1,7 +1,7 @@
-![logo](https://github.com/hebes-io/eevalue/blob/master/logo.png)
+![logo](https://github.com/hebes-io/eevalue/blob/main/logo.png)
 <br/><br/>
 
-## The `eevalue` tool for 
+## The `eevalue` tool for estimating the value of energy efficiency in conditions of missing capacity
 
 The `eevalue` Python package accompanies the deliverable <b>D4.2 The drivers of the value of energy efficiency as an energy resource</b> of the H2020 project [SENSEI Smart Energy Services to Improve the Energy Efficiency of the European Building Stock](https://senseih2020.eu/). 
 
@@ -32,4 +32,5 @@ In order to link energy efficiency with the challenges of the power system’s o
 
 The `eevalue` python package includes all necessary functionality to automatically build and validate a unit commitment model to derive target load shapes for a hypothetical P4LS program. The utilized unit commitment model is largely based on the Linear Programming (LP) formulation of the [Dispa-SET model](https://github.com/energy-modelling-toolkit/Dispa-SET/) that is developed within the Joint Research Centre of the European Commission.
 <br>
+
 <img align="left" width="500" src="https://github.com/hebes-io/eensight/blob/master/EC_support.png">
