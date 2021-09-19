@@ -1,5 +1,4 @@
 <img src="https://github.com/hebes-io/eevalue/blob/main/logo.png" width="400" height="200">
-<br/><br/>
 
 ## The `eevalue` tool for estimating the value of energy efficiency in conditions of missing capacity
 
