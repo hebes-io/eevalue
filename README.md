@@ -29,7 +29,7 @@ In order to link energy efficiency with the challenges of the power system’s o
 
 * Makes it possible to measure the performance of an energy efficiency project in a way that is similar to the way demand response is measured: the minimum amount of “work” required to transform the baseline consumption profile to the requested one.
 
-The `eevalue` python package includes all necessary functionality to automatically build and validate a unit commitment model to derive target load shapes for a hypothetical P4LS program. The utilized unit commitment model is largely based on the Linear Programming (LP) formulation of the [Dispa-SET model](https://github.com/energy-modelling-toolkit/Dispa-SET/) that is developed within the Joint Research Centre of the European Commission.
+The `eevalue` python package includes all necessary functionality to automatically build and validate a unit commitment model to derive target load shapes for a P4LS program. The utilized unit commitment model is largely based on the Linear Programming (LP) formulation of the [Dispa-SET model](https://github.com/energy-modelling-toolkit/Dispa-SET/) that is developed within the Joint Research Centre of the European Commission.
 <br>
 
 <img align="left" width="500" src="https://github.com/hebes-io/eensight/blob/master/EC_support.png">
