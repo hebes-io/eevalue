@@ -185,7 +185,7 @@ class ModelData:
     def __post_init_post_parse__(self, calibration):
         self._sets = dict()
         self._sets["mk"] = ["DA", "2U", "2D"]
-        self._sets["cl"] = self.clustered_plants["Cluster"].tolist()
+        self._sets["cl"] = self.clustered_plants["Cluster"].to_list()
         self._sets["f"] = self.clustered_plants["Fuel"].unique().tolist()
         self._sets["t"] = self.clustered_plants["Technology"].unique().tolist()
         self._sets["h"] = (
@@ -259,23 +259,12 @@ def build_time_series_params(model_data: ModelData):
             raise RuntimeError("Dataframe index cannot match `h` index")
         return data
 
-    plants = model_data.clustered_plants
-    combinations = set(zip(plants["Technology"], plants["Fuel"]))
-
     avail_factors = align_time_index(model_data.availability_factors)
     parameters["AF"] = {}
-    for item in combinations:
-        t, f = item
-        clusters = plants[(plants["Technology"] == t) & (plants["Fuel"] == f)][
-            "Cluster"
-        ].tolist()
-        for cl in clusters:
-            parameters["AF"].update(
-                {
-                    (cl, h): val
-                    for h, val in avail_factors["_".join([t, f])].to_dict().items()
-                }
-            )
+    for cl in model_data.sets["cl"]:
+        parameters["AF"].update(
+            {(cl, h): val for h, val in avail_factors[cl].to_dict().items()}
+        )
 
     demand = align_time_index(model_data.demand)
     parameters["Demand"] = {}
@@ -305,18 +294,10 @@ def build_time_series_params(model_data: ModelData):
     parameters["Markup"] = dict()
     if model_data.markup is not None:
         markup = align_time_index(model_data.markup)
-        for item in combinations:
-            t, f = item
-            clusters = plants[(plants["Technology"] == t) & (plants["Fuel"] == f)][
-                "Cluster"
-            ].tolist()
-            for cl in clusters:
-                parameters["Markup"].update(
-                    {
-                        (cl, h): val
-                        for h, val in markup["_".join([t, f])].to_dict().items()
-                    }
-                )
+        for cl in model_data.sets["cl"]:
+            parameters["Markup"].update(
+                {(cl, h): val for h, val in markup[cl].to_dict().items()}
+            )
     else:
         for cl in model_data.sets["cl"]:
             parameters["Markup"].update({(cl, h): 0 for h in model_data.sets["h"]})

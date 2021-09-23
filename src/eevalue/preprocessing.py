@@ -53,7 +53,6 @@ def assign_clusters(plants):
                     "Cluster",
                 ] = cl
                 cl += 1
-
     return plants
 
 
@@ -120,4 +119,7 @@ def group_plants(plants):
             )
         )
 
+    clustered_plants["Cluster"] = clustered_plants[["Technology", "Fuel"]].agg(
+        "_".join, axis=1
+    )
     return clustered_plants
