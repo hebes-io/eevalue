@@ -1,0 +1,12 @@
+blosc>=1.11.1 
+colorlog>=6.7.0
+mlflow>=2.2.2
+omegaconf>=2.3.0
+power-markets>=0.1
+pydantic>=1.10.7
+pyomo>=6.5.0
+rich>=13.3.3
+scikit-learn>=1.2.2
+
+
+

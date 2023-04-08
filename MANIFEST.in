@@ -1,0 +1,3 @@
+include *.txt
+recursive-include eevalue *.toml
+recursive-include images *.png

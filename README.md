@@ -1,35 +1,139 @@
-<img src="https://github.com/hebes-io/eevalue/blob/main/logo.png" width="400" height="200">
+<img src="./images/logo.png" width="400" height="150">
+<br/>
 
-## The `eevalue` tool for estimating the value of energy efficiency in conditions of missing capacity
+[![PyPI version](https://badge.fury.io/py/eevalue-tool.svg)](https://badge.fury.io/py/eevalue-tool)
 
-The `eevalue` Python package accompanies the deliverable <b>D4.2 The drivers of the value of energy efficiency as an energy resource</b> of the H2020 project [SENSEI Smart Energy Services to Improve the Energy Efficiency of the European Building Stock](https://senseih2020.eu/). 
+# Estimating the value of energy efficiency as a grid resource
 
-The energy efficiency services sector is lagging behind renewable energy generation in terms of demand for investments, as well as business models for aggregating projects and attracting investment capital from institutional investors. The term “institutional investors” is an umbrella term covering pension funds, insurance companies, banking institutions and other investment funds. While mature business models for financing and implementing energy efficiency models at the level of individual buildings already exist, scaling energy efficiency up to project portfolio level still faces challenges; there is still a need for replicable approaches to create large-scale pipelines of projects that can be aggregated to appeal to third-party financiers.
+The ongoing EU goal for the decarbonisation of the power system means that decentralized and fluctuating solar- and wind-driven power generation substitutes more and more power from dispatchable, fossil-fuelled power plants. This results to increased variability of supply and to power system operators requiring more options to efficiently handle the stability and adequacy challenges of the power grid. While the most often suggested option is demand flexibility, i.e. the fast-responding adaptation of power consumption to the variable generation, the H2020 project [SENSEI](https://senseih2020.eu/) examined the role that energy efficiency, i.e. the persistent and maintained changes in power consumption compared to a baseline level, can play in a renewables-based electricity system. 
 
-The main argument of SENSEI is twofold:
+Energy efficiency improvements may affect power consumption in two (2) ways:
 
-1. The roll out of Pay-for-Performance (P4P) pilots for energy efficiency projects can lay the groundwork for the innovations in contract design and performance evaluation that are necessary for creating such large-scale pipelines of projects. In particular, P4P pilots constitute an effective use of public finance to discover best practices for the aggregation of a large number of energy efficiency projects into portfolios, and they can act as a workbench for developing financing tools and risk allocation mechanisms in order to increase demand for energy efficiency projects. 
+1. Decrease power consumption by improving the efficiency of a piece of electric equipment (such as the efficiency of an air cooling system) or reducing the total amount of work that must be performed by an existing piece of electric equipment (such as upgrading envelope insulation so that to reduce the cooling load);
 
 
-2. P4P pilots can stem from a policy decision to align energy efficiency support schemes with the foreseen needs of the power grid. The value of such an alignment comes from the interactions between energy efficiency improvements in buildings and the power system’s need for peak capacity and/or demand flexibility. An energy efficiency measure (EEM) may reduce demand during the hours when the probability of load loss is high. Simultaneously, there are times when increased demand may be beneficial (e.g., during periods of renewable energy over-generation and curtailment). If energy efficiency reduces demand in those hours, then the system need for flexibility will increase.  
+2. Increase power consumption due to fuel substitution, such as when an old oil-fuelled boiler is replaced by an electric heat pump.  
 
-SENSEI acknowledges that power system operators cannot directly compensate the energy efficiency measures and cannot directly monitor their performance – both functions are out of their scope and responsibilities. Furthermore, and since energy efficiency is not seen or optimized by the energy or capacity market, it cannot receive a qualifying capacity value for resource adequacy purposes. Instead, it must be compensated through programs that identify and support the measures that are most effective in offsetting the need for new generating plants or transmission upgrades. As a result, the coordination between the needs of the power system and the incentives for energy efficiency improvements must take place during the (medium-term) planning for resource adequacy in the power system. 
+Accordingly, energy efficiency improvements may reduce power demand during the hours when the probability of load loss is high and/or hours when persistent variability in the net load leads to ramping events. In both of these cases, energy efficiency can help phase out old, polluting power plants that are only kept commissioned for the provision of capacity reserves, as well as reduce the amount of new generation capacity that is needed to serve the future load growth. On the other hand, there are times when increased power demand may be actually beneficial, such as during periods of renewable power over-generation and curtailment. If energy efficiency interventions reduced power demand during those hours, the system needs for demand flexibility would increase. 
 
-The first step towards defining a P4P scheme that links energy efficiency in buildings with the power system’s state is to define what constitutes a load modifier resource. Load-modifiers are those resources or programs not seen or optimized by the power or capacity market, that persistently modify the power system’s load shape in ways that harmonize with the system operator’s goals. An effective load modifying resource helps create a flatter system load profile, attenuating high power peaks and valleys and reducing extreme upward and downward ramps.
+Under this perspective, energy efficiency could be regarded by the power grid as a *load modifying resource*: although it is not dispatchable by the power or capacity market, energy efficiency is able to persistently modify the power system’s load shape in ways that harmonize with the system operator’s goals, such as peak shaving, increased hosting capacity for renewables, reducing steep upward and downward ramps, and reducing the overall costs of power procurement. 
 
-In order to link energy efficiency with the challenges of the power system’s operation, SENSEI promotes the case where energy efficiency improvements are valorised through a Pay for Load Shape (P4LS) program, as proposed by the California Public Utilities Commission’s Working Group on Load Shift. A P4LS program: 
+In general, a load modifying resource would be most valuable if it could induce persistent changes in the power consumption profile that increase demand during some time periods and decrease demand during others, so that to better align with the daily/seasonal net load profile. This means that the value of an energy efficiency project for the power grid is highly dependent on the temporal profile of the power consumption changes that it induces: some aspects of a consumption profile change may increase the value of the project, such as when power demand decreases during periods of high probability of capacity deficit, while others decrease its value, such as when the probability of renewable generation curtailment is increased.
 
-* Operates outside of the power and capacity market;
+The `eevalue` Python package quantifies the value of an energy efficiency project for the power grid through a composite indicator that consolidates the different ways the project affects the grid. A project can be considered as grid positive if the positive impacts outweigh the negative. The `eevalue` methodology is implemented using the same process and the same tools that system operators use for capacity adequacy studies. There are two (2) reasons for this approach. The first reason is that the coordination between the needs of the power system and the incentives for energy efficiency improvements must take place during the medium-term planning for resource adequacy in the power system. The second reason is to showcase that the design of a program that compensates energy efficiency for its contribution to the grid does not need a radically new toolset, but can be done using the tools that power system operators already use for capacity adequacy planning.
 
-* Is based on target load shapes that change gradually according to the evolving conditions of the grid;
+## Installation
 
-* Is aligned with the P4P concept, since an energy efficiency project is compensated according to its actual impact and the changes in energy consumption that occur because of it; 
+The `eevalue` tool can be installed through PyPI:
 
-* Incentivises decisions that have a persistent effect on the daily and seasonal profile of electricity demand, such as equipment upgrades, installation of control technologies and building envelope improvements;
+```bash
+pip install eevalue-tool
+```
 
-* Makes it possible to measure the performance of an energy efficiency project in a way that is similar to the way demand response is measured: the minimum amount of “work” required to transform the baseline consumption profile to the requested one.
+**Note that the tool's functionality relies on the availability of a linear programming solver**. By default, the [HiGHS](https://highs.dev/) solver is used by `eevalue`. HiGHS is freely available under the MIT licence, and can be downloaded from [Github](https://github.com/ERGO-Code/HiGHS). Alternatively, binaries for all platforms can be downloaded from AMPL's [website for open-source solvers](https://ampl.com/products/solvers/open-source-solvers/). In all cases, the HiGHS executable file must be included in the PATH environment variable.   
 
-The `eevalue` python package includes all necessary functionality to automatically build and validate a unit commitment model to derive target load shapes for a P4LS program. The utilized unit commitment model is largely based on the Linear Programming (LP) formulation of the [Dispa-SET model](https://github.com/energy-modelling-toolkit/Dispa-SET/) that is developed within the Joint Research Centre of the European Commission.
-<br>
+## Usage
 
-<img align="left" width="500" src="https://github.com/hebes-io/eensight/blob/master/EC_support.png">
+All the functionality in `eevalue` is organized around data pipelines. Each pipeline consumes data and other artifacts (such as models) produced by a previous pipeline, and produces new data and artifacts for its successor pipelines.
+
+There are eight (8) pipelines in `eevalue`.
+
+### `preprocess`
+
+The preprocessing stage implements the clustering of the power plants based on their technology (such as combined cycle gas turbines or steam turbines) and primary fuel (such as natural gas, coal or water/hydro). The quantitative analysis in `eevalue` utilizes a unit commitment model to identify the conditions under which energy efficiency improvements are most valuable for the power system and its operation. To limit the computational cost of solving unit commitment problems, power plants are aggregated into a small number of clusters.
+
+Furthermore, this stage performs Principal Components Analysis (PCA) on a data matrix that includes all hourly historical time series, and stores the principal components that explain up to 90% of the variability (this is a user-defined parameter and can be changed). The components are utilized during simulation to generate scenarios for all hourly time series (such as demand, wind and solar availability factors, maximum levels of power imports and exports, and so on).
+
+The command
+```bash
+eevalue preprocess --help
+```
+prints the documentation for all the options that can be passed to the command line for the preprocessing stage.
+
+### `backtest`
+
+The back-testing stage runs a simulation using historical data so as to compare actual and predicted results in terms of committed capacities per technology cluster. This helps evaluate how well the simulation model performs, as well as whether calibration to historical data is required.
+
+The command
+```bash
+eevalue backtest --help
+```
+prints the relevant documentation.
+
+### `calibrate`
+
+The calibration stage is a sequence of two (2) steps:
+
+* The 1st step identifies a function that predicts the *effective availability factor* of the hydropower resources (if they exist). Although nominal availability data for hydropower plants can be found from the respective system operators’ web sites, the corresponding capacity cannot be used in an unconstraint fashion, since reservoir water levels cannot be replenished at will. The effective availability factor of the hydropower resources is estimated as a function of their nominal availability factor and the value of water. The latter is quantified as the inverse of the ratio of the reservoirs’ filling rate to their long-term average. 
+
+
+* The 2nd step identifies a function that generates a markup to be added to the variable cost of each technology cluster given the power system’s conditions. For such a function to make sense, it should be consistently related to factors that one would expect to define the power plants’ bidding decisions: the levels of net load and available capacity in the system, and the value of water.
+
+The command
+```bash
+eevalue calibrate --help
+```
+prints the relevant documentation.
+
+### `simulate`
+
+This stage creates forward scenarios for the parameters that define the state of the power system (such as demand, available generation capacity, etc.), runs the corresponding simulations, and stores both the scenarios and the results. By default, the model stores results on committed capacities per technology cluster, curtailment of renewable generation and missing peak and ramping capacity.  
+
+The command
+```bash
+eevalue simulate --help
+```
+prints the relevant documentation.
+
+### `replay`
+
+This stage simulates the same scenarios that the `simulate` stage created and simulated, but now adds storage and/or load modifying resources. The goal is to identify: (a) how to best utilize the available storage and/or load modifying resources, and (b) what these resources’ impact is on the system’s probability of capacity deficit and renewable power curtailment. 
+
+The command
+```bash
+eevalue replay --help
+```
+prints the relevant documentation.
+
+### `compare`
+
+This stage compares the results of the two (2) previous steps to construct an indicator that associates storage capacity levels and/or load profile changes at specific hours of the year with reductions in capacity deficit and renewable power curtailment. This indicator defines the *grid friendliness* of an energy efficiency project given its pre- and post-retrofit power consumption profiles. 
+
+The command
+```bash
+eevalue compare --help
+```
+prints the relevant documentation.
+
+### `ordc`
+
+Estimates and stores the [operating reserve demand curve](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3383058) (ORDC) of the simulated system.
+
+The command
+```bash
+eevalue ordc --help
+```
+prints the relevant documentation.
+
+### `runs`
+
+Prints out the stored MLflow runs (filtered by tags). Every time a pipeline runs (except for the `preprocess` pipeline), its results are stored using [MLFlow](https://www.mlflow.org/) tracking. This means that each run gets its own id, and all its results can be retrieved and reused using this id. 
+
+The command
+```bash
+eevalue runs --help
+```
+prints the relevant documentation.
+
+The whole workflow is summarised in the diagram below:
+
+<img align="center" width="800" src="./images/eevalue_flow.png">
+<br/>
+<br/>
+
+## Additional information
+
+Details for the implementation of all the pipelines can be found in the document *The drivers of the value of energy efficiency as an energy resource* available at [Zenodo](https://zenodo.org/record/6797898#.YzGWfnZBxdg).
+
+<br/>
+<img align="left" width="500" src="./images/EC_support.png">

@@ -1,0 +1,75 @@
+Market:
+  HasHydro: true 
+  ReserveParticipation:
+    - 'COMC'
+    - 'HDR'
+  VOLL: 15000
+  StorageChargingEfficiency: 0.9
+  StorageDischargeEfficiency: 0.9
+  StorageCapacity: 0
+  StorageChargingCapacity: 0
+  StorageMinimum: 0
+  StorageFinalMin: 0
+  LoadShapeMaximum: 0
+  CostCurtailment: 10 #EUR/MWh
+Calibration:
+  HasMarkup:
+    - COMC_GAS
+    - HDR_WAT
+    - STUR_LIG
+  SimLength: 5
+  NumBins: 3
+  NumSamples: 500
+  NumTrials: 50
+  MarkupMin: 0
+  MarkupMax: 100
+Simulation:
+  Solver: highs
+  Warmup: 2
+Preprocessing:
+  ExVar: 0.9
+  NumComponents: 10
+Scenarios:
+  Warmup: 1
+  NumInterTrials: 2
+  NumIntraTrials: 15
+  AF:
+    StartDate: 1-1-2018
+    EndDate: 1-11-2020
+    Group: month
+  Capacity:
+    FilePath: scenarios/capacity.csv
+  CapacityPV:
+    FilePath: scenarios/solar.csv
+  CapacityWind:
+    FilePath: scenarios/wind.csv
+  CarbonPrice:
+    FilePath: scenarios/carbon.csv
+    Multiplier: 2
+  FuelPrice:
+    LIG:
+      FilePath: scenarios/lignite.csv
+      Multiplier: null
+    GAS:
+      FilePath: scenarios/gas.csv
+      Multiplier: 4
+  Demand:
+    FilePath: scenarios/demand.csv
+    Multiplier: null 
+  Storage:
+    StorageChargingEfficiency: 0.9
+    StorageDischargeEfficiency: 0.9
+    StorageChargingCapacity: 5 #hours
+    StorageMinimum: 0.3
+    StorageFinalMin: 0.3
+    Capacity:
+      FilePath: scenarios/storage.csv
+      Multiplier: null 
+
+
+
+
+
+
+
+
